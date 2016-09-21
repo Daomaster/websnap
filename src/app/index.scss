@@ -60,7 +60,7 @@ html {
 }
 
 md-toolbar.md-default-theme {
-  background-color: black;
+  background-color: red;
 }
 
 section.jumbotron {
@@ -74,6 +74,16 @@ section.jumbotron {
   h1 {
     font-size: 3em;
   }
+}
+
+listmenu {
+    md-list-item{
+    background-color: #90CAF9;
+  }
+}
+
+.navbar {
+  background-color: #90CAF9;
 }
 
 

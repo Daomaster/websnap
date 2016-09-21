@@ -1,0 +1,16 @@
+md-card(ng-repeat='item in vm.options')
+  md-card-title
+    md-card-title-text
+      span.md-headline {{item.from}}
+  md-card-content(layout='row', layout-align='space-around center')
+    div(flex='50')
+      span
+        | {{item.content}}
+    div
+      span
+        | 10/17/2016
+
+    
+
+
+
