@@ -1,1 +1,8 @@
+md-list-item.md-3-line(ng-repeat='item in vm.options', ng-click='console.log("clicked")')
+	md-icon(md-svg-src="{{ item.iconURL }}")
+	.md-list-item-text(layout='column')
+		h3 {{ item.name }}
+    
+
+
 
