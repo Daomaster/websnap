@@ -69,12 +69,16 @@
         }
       ]
 
+      this.addChat = function(chat) {
+        chats.push(chat);
+      };
+
       this.getChatsByName = function(name) {
         for (var i = chats.length - 1; i >= 0; i--) {
           if (chats[i].from == name)
             return chats[i]
         }
-      }
+      };
 
       this.getChats = function() {
         return chats;
