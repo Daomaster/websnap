@@ -1,9 +1,10 @@
-md-list-item.md-2-line(ng-repeat='item in vm.options', ng-click='console.log("clicked")')
-	md-icon(md-svg-src="{{ item.iconURL }}")
-	.md-list-item-text(layout='column')
-		h3 {{ item.name }}
-	md-divider
-    
+md-fab-speed-dial(md-open="vm.isOpen" ng-mouseenter="vm.hover()" ng-mouseleave="vm.notHover()" md-direction='up' md-hover-full md-fab-bottom-right='md-fab-bottom-right' ng-class="vm.mode")
+  md-fab-trigger
+    md-button.md-fab.md-warn(aria-label='Compose')
+      md-tooltip(md-direction="left") Compose
+      md-icon(md-svg-src='assets/images/compose.svg')
 
-
-
+  md-fab-actions
+    md-button.md-fab.md-raised.md-mini(aria-label='{{item.name}}' ng-repeat="item in vm.options")
+      md-tooltip(md-direction="left") {{item.name}}
+      md-icon(md-svg-src='{{item.iconURL}}', aria-label='{{item.name}}')

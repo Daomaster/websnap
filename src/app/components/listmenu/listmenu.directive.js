@@ -25,10 +25,6 @@
       var vm = this;
       vm.options = [
         {
-          name: "Chats",
-          iconURL: "assets/images/inbox.svg"
-        },
-        {
           name: "Contacts",
           iconURL: "assets/images/contact.svg"
         },
@@ -36,7 +32,15 @@
           name: "Profile",
           iconURL: "assets/images/profile.svg"
         }
-      ]
+      ];
+      vm.hover = function() {
+        vm.isOpen = true;
+      };
+      vm.notHover = function() {
+        vm.isOpen = false;
+      };
+      vm.isOpen = false;
+      vm.mode = 'md-scale';
     }
   }
 
