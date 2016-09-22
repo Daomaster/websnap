@@ -21,7 +21,7 @@
     return directive;
 
     /** @ngInject */
-    function ListMenuController($mdDialog, $document) {
+    function ListMenuController($mdDialog, $document, ContactService) {
       var vm = this;
       
       vm.messageModal = function(ev) {
@@ -37,48 +37,27 @@
             var lowercaseQuery = angular.lowercase(query);
 
             return function filterFn(contact) {
-              return (contact._lowername.indexOf(lowercaseQuery) != -1);;
+              return (contact._lowername.indexOf(lowercaseQuery) != -1);
             };
 
           }
 
-          var loadContacts = function() {
-            var contacts = [
-              'John Smith',
-              'Mike Bay',
-              'Stan Zeng',
-              'James Bond',
-              'Chris Prat'
-            ];
+          var cachedQuery;
+          var canvas = $document.find('#display-canvas');
 
-            // for now generate example emails
-            return contacts.map(function (c, index) {
-              var cParts = c.split(' ');
-              var contact = {
-                name: c,
-                email: cParts[0][0].toLowerCase() + '.' + cParts[1].toLowerCase() + '@example.com'
-              };
-              contact._lowername = contact.name.toLowerCase();
-              return contact;
-            });
-          }
+          $scope.allContacts = ContactService.getContacts();
+          $scope.contacts = [];
+          $scope.filterSelected = true;
 
-            var cachedQuery, lastSearch;
-            var canvas = 
+          $scope.querySearch = querySearch;
 
-            $scope.allContacts = loadContacts();
-            $scope.contacts = [];
-            $scope.filterSelected = true;
+          $scope.cancel = function() {
+           $mdDialog.cancel();
+          };
 
-            $scope.querySearch = querySearch;
-
-            $scope.cancel = function() {
-             $mdDialog.cancel();
-            };
-
-            $scope.send = function() {
-             $mdDialog.hide($scope.msg);
-            };
+          $scope.send = function() {
+           $mdDialog.hide($scope.msg);
+          };
           },
           templateUrl: 'app/components/listmenu/messageModal.html',
           parent: angular.element($document.body),

@@ -1,0 +1,25 @@
+md-dialog(aria-label='Send Message')
+  form
+    md-toolbar
+      .md-toolbar-tools
+        h2 {{from}}
+        span(flex='')
+        md-button.md-icon-button(ng-click='cancel()')
+          md-icon(md-svg-src='assets/images/close.svg', aria-label='Close dialog')
+    md-dialog-content.message-modal
+      div(layout='row')
+       div(flex='3')
+       div(flex='94')
+        div(layout='column')
+          div(flex='80')
+           md-whiteframe(class='md-whiteframe-3dp display-container' layout layout-align='center center')
+            image(class='image-display')
+          div(flex='20')
+           p {{chats[index].msg}}
+       div(flex='3')
+     
+  div(layout="row")
+   md-progress-linear(md-mode="determinate" style='margin-right:5px;' value="{{chat.progress}}" ng-repeat="chat in chats")
+  md-dialog-actions(layout='row')
+    md-button(ng-click='cancel()') Cancel
+    md-button(ng-click='next()', style='margin-right:20px;') Next

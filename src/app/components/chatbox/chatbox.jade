@@ -1,12 +1,12 @@
-md-card(ng-repeat='item in vm.options' md-whiteframe="6")
+md-card(ng-repeat='item in vm.options' md-whiteframe='6' ng-click='vm.expand(item.from)')
   md-card-title
     md-card-title-text
       span.md-headline {{item.from}}
-  md-card-content(layout='row', layout-align='space-around center')
+  md-card-content(layout='row' layout-align='space-around center')
     div(flex='50')
       span
-        | {{item.content}}
+        | {{item.content[0].msg}}
     div
       span
-        | 10/17/2016
+        | {{item.content[0].time}}
 
