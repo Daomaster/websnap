@@ -9,10 +9,11 @@ md-dialog(aria-label='Send Message')
     md-dialog-content.message-modal
       md-contact-chips(ng-model='contacts' md-contacts='querySearch($query)' md-contact-name='name' md-require-match='true' md-highlight-flags='i' filter-selected='filterSelected' placeholder='To')
       div(layout="row")
-       div(flex='10')
-       div(flex='80')
+       div(flex='5')
+       div(flex='90')
         md-whiteframe(class="md-whiteframe-3dp" layout layout-align="center center" style=" height: 400px; margin-top: 20px; margin-bottom: 20px;")
-       div(flex='10')
+         canvas(class="image-display" id="display-canvas")
+       div(flex='5')
       md-input-container.md-block
         label Message
         textarea(ng-model='msg', md-maxlength='140', rows='4', md-select-on-focus='true')

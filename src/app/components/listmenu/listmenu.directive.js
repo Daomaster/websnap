@@ -26,7 +26,7 @@
       
       vm.messageModal = function(ev) {
         $mdDialog.show({
-          controller: function($mdDialog, $scope) {
+          controller: function($mdDialog, $scope, $document) {
 
           var querySearch = function(criteria) {
             cachedQuery = cachedQuery || criteria;
@@ -64,6 +64,7 @@
           }
 
             var cachedQuery, lastSearch;
+            var canvas = 
 
             $scope.allContacts = loadContacts();
             $scope.contacts = [];
