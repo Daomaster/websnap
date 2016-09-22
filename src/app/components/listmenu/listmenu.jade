@@ -1,6 +1,6 @@
 md-fab-speed-dial(md-open="vm.isOpen" ng-mouseenter="vm.hover()" ng-mouseleave="vm.notHover()" md-direction='up' md-hover-full md-fab-bottom-right='md-fab-bottom-right' ng-class="vm.mode")
   md-fab-trigger
-    md-button.md-fab.md-warn(aria-label='Compose')
+    md-button.md-fab.md-warn(aria-label='Compose' ng-click="vm.messageModal()")
       md-tooltip(md-direction="left") Compose
       md-icon(md-svg-src='assets/images/compose.svg')
 

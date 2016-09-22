@@ -1,0 +1,21 @@
+md-dialog(aria-label='Send Message')
+  form
+    md-toolbar
+      .md-toolbar-tools
+        h2 Send Message
+        span(flex='')
+        md-button.md-icon-button(ng-click='cancel()')
+          md-icon(md-svg-src='assets/images/close.svg', aria-label='Close dialog')
+    md-dialog-content.message-modal
+      md-contact-chips(ng-model='contacts' md-contacts='querySearch($query)' md-contact-name='name' md-require-match='true' md-highlight-flags='i' filter-selected='filterSelected' placeholder='To')
+      div(layout="row")
+       div(flex='10')
+       div(flex='80')
+        md-whiteframe(class="md-whiteframe-3dp" layout layout-align="center center" style=" height: 400px; margin-top: 20px; margin-bottom: 20px;")
+       div(flex='10')
+      md-input-container.md-block
+        label Message
+        textarea(ng-model='msg', md-maxlength='140', rows='4', md-select-on-focus='true')
+  md-dialog-actions(layout='row')
+    md-button(ng-click='cancel()') Cancel
+    md-button(ng-click='send()', style='margin-right:20px;') Send
