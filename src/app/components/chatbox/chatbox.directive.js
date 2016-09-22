@@ -45,7 +45,10 @@
               };
 
               $scope.next = function() {
+               $scope.chats[$scope.index].progress = 100;
                $scope.index++;
+               if ($scope.index == $scope.chats.length)
+                    $scope.cancel();
               };
 
               var promise = $interval(function() {
