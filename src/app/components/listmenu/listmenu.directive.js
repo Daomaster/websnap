@@ -26,7 +26,7 @@
       
       vm.messageModal = function(ev) {
         $mdDialog.show({
-          controller: function($mdDialog, $scope, $document) {
+          controller: function($mdDialog, $scope, $document, $q, $timeout) {
 
           var querySearch = function(criteria) {
             cachedQuery = cachedQuery || criteria;
@@ -42,14 +42,50 @@
 
           }
 
-          var cachedQuery;
+           var delayedQuerySearch = function (criteria) {
+              cachedQuery = criteria;
+              if ( !pendingSearch || !debounceSearch() )  {
+                cancelSearch();
+
+                return pendingSearch = $q(function(resolve, reject) {
+                  // Simulate async search... (after debouncing)
+                  cancelSearch = reject;
+                  $timeout(function() {
+
+                    resolve( querySearch() );
+
+                    refreshDebounce();
+                  }, Math.random() * 500, true)
+                });
+              }
+
+              return pendingSearch;
+            }
+
+            var refreshDebounce = function() {
+              lastSearch = 0;
+              pendingSearch = null;
+              cancelSearch = angular.noop;
+            }
+
+            /**
+             * Debounce if querying faster than 300ms
+             */
+            var debounceSearch = function() {
+              var now = new Date().getMilliseconds();
+              lastSearch = lastSearch || now;
+
+              return ((now - lastSearch) < 300);
+            }
+
+          var pendingSearch, cancelSearch = angular.noop;
+          var cachedQuery, lastSearch;
           var canvas = $document.find('#display-canvas');
 
           $scope.allContacts = ContactService.getContacts();
           $scope.contacts = [];
-          $scope.filterSelected = true;
 
-          $scope.querySearch = querySearch;
+          $scope.querySearch = delayedQuerySearch;
 
           $scope.cancel = function() {
            $mdDialog.cancel();
