@@ -1,0 +1,37 @@
+md-content(style='background-color: #5C6BC0; height:100%;')
+  div(layout='row', style='margin-top:10%;', layout-align='center center')
+    div(flex='30')
+      md-card
+        md-card-title
+          md-card-title-text
+            span.md-headline(style='color:#3F51B5') Log In
+        md-card-content
+          div(ng-show="vm.toggle")
+            md-input-container.md-block
+              label First Name
+              input(ng-model='vm.username', type='text', ng-required='true')
+            md-input-container.md-block
+              label Last Name
+              input(ng-model='vm.username', type='text', ng-required='true')
+            md-input-container.md-block
+              label Username
+              input(ng-model='vm.username', type='text', ng-required='true')
+            md-input-container.md-block
+              label Password
+              input(ng-model='vm.password', type='password', ng-required='true')
+            md-input-container.md-block
+              label Confirm Password
+              input(ng-model='vm.password', type='password', ng-required='true')
+          div(ng-show="!vm.toggle")
+            md-input-container.md-block
+              label Username
+              md-icon(md-svg-src="assets/images/mail.svg")
+              input(ng-model='vm.username', type='text', ng-required='true')
+            md-input-container.md-block
+              label Password
+              md-icon(md-svg-src="assets/images/password.svg")
+              input(ng-model='vm.password', type='password', ng-required='true')
+        md-button.md-raised.md-primary(ng-show="!toggle" ng-click="vm.login()") Log In
+        md-button.md-raised.md-primary(ng-show="toggle" ng-click="vm.signup()") Sign Up
+        md-card-actions(layout='row', layout-align='end center')
+          md-button.md-primary(ng-click="vm.toggleSignUp()") Sign Up

@@ -5,15 +5,25 @@
     .module('websnap')
     .config(routeConfig);
 
-  function routeConfig($routeProvider) {
+  function routeConfig($routeProvider, $locationProvider) {
     $routeProvider
-      .when('/', {
+      .when('/inbox', {
         templateUrl: 'app/main/main.html',
         controller: 'MainController',
-        controllerAs: 'main'
+        controllerAs: 'vm'
+      })
+      .when('/login', {
+        templateUrl: 'app/login/login.html',
+        controller: 'LoginController',
+        controllerAs: 'vm'
       })
       .otherwise({
-        redirectTo: '/'
+        redirectTo: '/login'
+      });
+
+    $locationProvider.html5Mode({
+       enabled: true,
+       requireBase: false
       });
   }
 
