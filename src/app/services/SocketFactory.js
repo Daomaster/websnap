@@ -3,10 +3,9 @@
 angular
   .module('websnap')
   .factory('SocketFactory', function($rootScope) {
-    var url = 'http://localhost:3001';
+    var url = 'http://localhost:3005';
 
     var socket = io.connect(url);
-
     return {
       id: 0,
       on: function(eventName, callback) {

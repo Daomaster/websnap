@@ -6,7 +6,10 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController() {
+  function MainController(SocketFactory) {
     var vm = this;
+    SocketFactory.on('connect', function() {
+    	console.log("Connected");
+    });
   }
 })();
