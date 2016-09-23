@@ -21,8 +21,12 @@
     return directive;
 
     /** @ngInject */
-    function NavbarController() {
+    function NavbarController($location, ContactService) {
       var vm = this;
+      vm.logout = function() {
+        ContactService.resetUserInfo();
+        $location.path('login');
+      }
     }
   }
 
