@@ -6,10 +6,13 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController(SocketFactory) {
+  function MainController(SocketFactory, ContactService) {
     var vm = this;
-    SocketFactory.on('connect', function() {
-    	console.log("Connected");
-    });
+    if(ContactService.getUserId() != ""){
+      console.log("Listening WebSocket");
+    	SocketFactory.on(ContactService.getUserId(), function(data) {
+        console.log(data);
+      })
+    }
   }
 })();
