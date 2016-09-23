@@ -6,32 +6,30 @@ md-content(style='background-color: #5C6BC0; height:100%;')
           md-card-title-text
             span.md-headline(style='color:#3F51B5') Log In
         md-card-content
-          div(ng-show="vm.toggle")
+          form(ng-show="vm.toggle" name="signupForm")
             md-input-container.md-block
               label First Name
-              input(ng-model='vm.username', type='text', ng-required='true')
+              input(ng-model='vm.fname', type='text', ng-required='true' ng-focus="vm.resetError()")
             md-input-container.md-block
               label Last Name
-              input(ng-model='vm.username', type='text', ng-required='true')
+              input(ng-model='vm.lname', type='text', ng-required='true' ng-focus="vm.resetError()")
             md-input-container.md-block
               label Username
-              input(ng-model='vm.username', type='text', ng-required='true')
+              input(ng-model='vm.rUsername', type='text', ng-required='true' ng-focus="vm.resetError()")
             md-input-container.md-block
               label Password
-              input(ng-model='vm.password', type='password', ng-required='true')
-            md-input-container.md-block
-              label Confirm Password
-              input(ng-model='vm.password', type='password', ng-required='true')
-          div(ng-show="!vm.toggle")
+              input(ng-model='vm.rPassword', type='password', ng-required='true' ng-focus="vm.resetError()")
+          form(ng-show="!vm.toggle" name="loginForm")
             md-input-container.md-block
               label Username
               md-icon(md-svg-src="assets/images/mail.svg")
-              input(ng-model='vm.username', type='text', ng-required='true')
+              input(ng-model='vm.username', type='text', ng-required='true' ng-focus="vm.resetError()")
             md-input-container.md-block
               label Password
               md-icon(md-svg-src="assets/images/password.svg")
-              input(ng-model='vm.password', type='password', ng-required='true')
-        md-button.md-raised.md-primary(ng-show="!toggle" ng-click="vm.login()") Log In
-        md-button.md-raised.md-primary(ng-show="toggle" ng-click="vm.signup()") Sign Up
-        md-card-actions(layout='row', layout-align='end center')
-          md-button.md-primary(ng-click="vm.toggleSignUp()") Sign Up
+              input(ng-model='vm.password', type='password', ng-required='true' ng-focus="vm.resetError()")
+          p(style="color: #F44336;" ng-show="vm.error") {{vm.errMsg}}
+        md-button.md-raised.md-primary(ng-show="!vm.toggle" ng-click="vm.login()") Log In
+        md-button.md-raised.md-primary(ng-show="vm.toggle" ng-click="vm.signup()") Sign Up
+        md-card-actions(layout='row' layout-align='end center')
+          md-button.md-primary(ng-show="!vm.toggle" ng-click="vm.toggleSignUp()") Sign Up
