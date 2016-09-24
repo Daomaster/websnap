@@ -26,7 +26,7 @@
       
       vm.messageModal = function(ev) {
         $mdDialog.show({
-          controller: function($mdDialog, $scope, $document, $q, $timeout) {
+          controller: function($mdDialog, $scope, $document, $q, ApiService) {
 
           var querySearch = function(criteria) {
             cachedQuery = cachedQuery || criteria;
@@ -91,8 +91,8 @@
           };
 
           $scope.send = function() {
-            console.log($scope.tos);
-            $mdDialog.hide($scope.msg);
+            ApiService.sendmsg($scope.tos,$scope.msg);
+            $mdDialog.hide();
           };
           },
           templateUrl: 'app/components/listmenu/messageModal.html',
@@ -100,11 +100,6 @@
           targetEvent: ev,
           clickOutsideToClose:false,
           fullscreen: true
-        })
-        .then(function(msg) {
-          //Here is to call the api send message
-        }, function() {
-          //Exit part of the modal
         });
       };
 

@@ -64,5 +64,22 @@
         );
       };
 
+      this.sendmsg = function(tos, msg) {
+        var apiCall = generateRoute('sendmsg');
+        return $http.post(apiCall, {
+          tos: tos,
+          msg: msg
+        }).then(
+          function success(response) {
+            var msg = 'Message sent!';
+            httpSuccess(msg);
+          },
+          function error(response) {
+            var msg = 'Unable to send message...';
+            httpError(msg);
+          }
+        );
+      };
+
       });
 })();
