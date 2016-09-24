@@ -82,16 +82,17 @@
           var canvas = $document.find('#display-canvas');
 
           $scope.allContacts = ContactService.getContacts();
-          $scope.contacts = [];
+          $scope.tos = [];
 
           $scope.querySearch = delayedQuerySearch;
 
           $scope.cancel = function() {
-           $mdDialog.cancel();
+            $mdDialog.cancel();
           };
 
           $scope.send = function() {
-           $mdDialog.hide($scope.msg);
+            console.log($scope.tos);
+            $mdDialog.hide($scope.msg);
           };
           },
           templateUrl: 'app/components/listmenu/messageModal.html',

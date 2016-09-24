@@ -51,7 +51,7 @@
           return contacts.map(function (c) {
               var contact = {
                 name: c.username,
-                userId: c.userId,
+                userId: c.objectId,
                 _lowername: c.username.toLowerCase()
               };
               return contact;
