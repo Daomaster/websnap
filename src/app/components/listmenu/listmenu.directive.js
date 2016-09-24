@@ -21,7 +21,7 @@
     return directive;
 
     /** @ngInject */
-    function ListMenuController($mdDialog, $document, ContactService) {
+    function ListMenuController($mdDialog, $document, ContactService, ApiService) {
       var vm = this;
       
       vm.messageModal = function(ev) {
@@ -48,14 +48,13 @@
                 cancelSearch();
 
                 return pendingSearch = $q(function(resolve, reject) {
-                  // Simulate async search... (after debouncing)
                   cancelSearch = reject;
-                  $timeout(function() {
-
+                  ApiService.getquery(criteria, function(response) {
+                    ContactService.importContacts(response.data);
+                    $scope.allContacts = ContactService.getContacts();
                     resolve( querySearch() );
-
                     refreshDebounce();
-                  }, Math.random() * 500, true)
+                  })
                 });
               }
 

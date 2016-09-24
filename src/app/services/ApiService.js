@@ -48,5 +48,21 @@
           }
         );
       };
+
+       this.getquery = function(query, sCallback) {
+        var apiCall = generateRoute('getquery');
+        return $http.post(apiCall, {
+          query: query
+        }).then(
+          function success(response) {
+            sCallback(response);
+          },
+          function error(response) {
+            var msg = 'Unable to retrive query data...';
+            httpError(msg);
+          }
+        );
+      };
+
       });
 })();

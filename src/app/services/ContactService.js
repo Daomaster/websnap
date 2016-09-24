@@ -11,13 +11,7 @@
         lastname = "",
         userId = "";
 
-        var contacts = [
-              'John Smith',
-              'Mike Bay',
-              'Stan Zeng',
-              'James Bond',
-              'Chris Prat'
-            ];
+        var contacts = [];
 
         this.resetUserInfo = function() {
           username = "";
@@ -31,6 +25,10 @@
           firstname = obj.fname;
           lastname = obj.lname;
           userId = obj.objectId;
+        };
+
+        this.importContacts = function(array) {
+          contacts = array;
         };
 
         this.getUserName = function() {
@@ -51,12 +49,11 @@
 
         this.getContacts = function() {
           return contacts.map(function (c) {
-              var cParts = c.split(' ');
               var contact = {
-                name: c,
-                email: cParts[0][0].toLowerCase() + '.' + cParts[1].toLowerCase() + '@example.com'
+                name: c.username,
+                userId: c.userId,
+                _lowername: c.username.toLowerCase()
               };
-              contact._lowername = contact.name.toLowerCase();
               return contact;
             });
         };

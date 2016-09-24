@@ -55,5 +55,15 @@ Parse.serverURL = config.serverURL;
 				});
   });
 
+ router.post('/getquery', function(req, res) {
+    var query = new Parse.Query(Parse.User);
+		query.startsWith("username", req.body.query);
+		query.find({
+		  success: function(matches) {
+		    res.send(matches);
+		  	}
+		  })
+  });
+
 
 module.exports = router;
