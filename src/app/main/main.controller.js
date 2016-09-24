@@ -6,12 +6,12 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController(SocketFactory, ContactService) {
+  function MainController(SocketFactory, ContactService, ChatService) {
     var vm = this;
     if(ContactService.getUserId() != ""){
       console.log("Listening WebSocket");
     	SocketFactory.on(ContactService.getUserId(), function(data) {
-        console.log(data);
+        ChatService.addChat(data.from, data.msg, data.time);
       })
     }
   }

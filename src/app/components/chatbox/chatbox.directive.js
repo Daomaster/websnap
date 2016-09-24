@@ -24,6 +24,7 @@
     function ChatBoxController($mdDialog, $document, ChatService) {
       var vm = this;
       vm.options = ChatService.getChats();
+
         vm.expand = function(from) {
           $mdDialog.show({
             controller: function($mdDialog, $scope, $interval, ChatService) {

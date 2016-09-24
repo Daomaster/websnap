@@ -4,7 +4,7 @@
 
   angular
     .module('websnap')
-    .service('ApiService', function($http, $log){
+    .service('ApiService', function($http, $log, ContactService){
         var apiBase = "http://localhost/api/"
         var generateRoute = function(route) {
           return apiBase+route;
@@ -67,6 +67,7 @@
       this.sendmsg = function(tos, msg) {
         var apiCall = generateRoute('sendmsg');
         return $http.post(apiCall, {
+          from: ContactService.getUserName(),
           tos: tos,
           msg: msg
         }).then(

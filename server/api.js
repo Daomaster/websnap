@@ -67,7 +67,11 @@ module.exports = function(io, config) {
 
 	 	router.post('/sendmsg', function(req, res) {
 	   for (var i = req.body.tos.length - 1; i >= 0; i--) {
-	   	 io.emit(req.body.tos[i].userId, req.body.msg);
+	   	 io.emit(req.body.tos[i].userId, {
+	   	 	msg: req.body.msg,
+	   	 	from: req.body.from,
+	   	 	time: "9/23/2016"
+	   	 });
 	   }
 	   res.send("sucess");
 	  });
