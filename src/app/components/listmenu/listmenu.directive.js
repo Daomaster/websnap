@@ -21,12 +21,12 @@
     return directive;
 
     /** @ngInject */
-    function ListMenuController($mdDialog, $document, ContactService, ApiService) {
+    function ListMenuController($mdDialog, $document, Upload, ContactService) {
       var vm = this;
       
       vm.messageModal = function(ev) {
         $mdDialog.show({
-          controller: function($mdDialog, $scope, $document, $q, ApiService) {
+          controller: function($mdDialog, $scope, $q, ApiService, ImageService) {
 
           var querySearch = function(criteria) {
             cachedQuery = cachedQuery || criteria;
@@ -67,9 +67,7 @@
               cancelSearch = angular.noop;
             }
 
-            /**
-             * Debounce if querying faster than 300ms
-             */
+            //Debounce if querying faster than 300ms
             var debounceSearch = function() {
               var now = new Date().getMilliseconds();
               lastSearch = lastSearch || now;
@@ -79,21 +77,27 @@
 
           var pendingSearch, cancelSearch = angular.noop;
           var cachedQuery, lastSearch;
-          var canvas = $document.find('#display-canvas');
-
+          
           $scope.allContacts = ContactService.getContacts();
           $scope.tos = [];
 
           $scope.querySearch = delayedQuerySearch;
 
+          $scope.$watch('imgFile', function (newVal) {
+              if (newVal)
+                ImageService.processImage(newVal, document.getElementById('display-canvas'));
+          });
+
           $scope.cancel = function() {
+            ImageService.resetData();
             $mdDialog.cancel();
           };
 
           $scope.send = function() {
-            ApiService.sendmsg($scope.tos,$scope.msg);
+            ApiService.sendmsg($scope.tos,$scope.msg, ImageService.getDataURL());
             $mdDialog.hide();
           };
+
           },
           templateUrl: 'app/components/listmenu/messageModal.html',
           parent: angular.element($document.body),
