@@ -6,8 +6,13 @@
     .run(runBlock);
 
   /** @ngInject */
-  function runBlock($log) {
-    $log.debug('runBlock end');
+  function runBlock($log, $rootScope, $location) {
+  	$rootScope.$on('$routeChangeError', function(event, current, previous, rejection)
+  	 {
+        if(rejection === 'Not Authenticated'){
+            $location.path('/login');
+        }
+      })
   }
 
 })();

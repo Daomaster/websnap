@@ -4,20 +4,32 @@
 
   angular
     .module('websnap')
-    .service('ContactService', function(){
+    .service('ContactService', function($q){
         //User info
         var username = "",
         firstname = "",
         lastname = "",
-        userId = "";
+        userId = "",
+        loggedIn = false;
 
         var contacts = [];
+
+        this.authenticate  = function() {
+          if(loggedIn){
+                //If authenticated, return anything you want, probably a user object
+                return true;
+            } else {
+                //Else send a rejection
+                return $q.reject('Not Authenticated');
+            }
+        };
 
         this.resetUserInfo = function() {
           username = "";
           firstname = "";
           lastname = "";
           userId = "";
+          loggedIn = false;
         };
 
         this.registerUserInfo = function(obj) {
@@ -25,6 +37,7 @@
           firstname = obj.fname;
           lastname = obj.lname;
           userId = obj.objectId;
+          loggedIn = true;
         };
 
         this.importContacts = function(array) {

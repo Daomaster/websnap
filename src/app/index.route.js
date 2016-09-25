@@ -10,7 +10,12 @@
       .when('/inbox', {
         templateUrl: 'app/main/main.html',
         controller: 'MainController',
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+         resolve: {
+            'auth' : function(ContactService){
+                return ContactService.authenticate();
+            }
+        }
       })
       .when('/login', {
         templateUrl: 'app/login/login.html',
