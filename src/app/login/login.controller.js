@@ -17,7 +17,7 @@
       $location.path('inbox');
     };
     var errorHandler = function(res) {
-      vm.errMsg = res.data.message;
+      vm.errMsg = res.data.message || "Server is down at the moment...";
       vm.error = true;
     }
     vm.resetError = function() {
