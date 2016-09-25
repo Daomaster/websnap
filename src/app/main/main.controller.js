@@ -20,7 +20,7 @@
       ApiService.getUnreadMessage(sucessHandler);
       console.log("Listening WebSocket");
     	SocketFactory.on(ContactService.getUserId(), function(data) {
-        ChatService.addChat(data.from, data.msg, data.time, data.url, data.chatId);
+        ChatService.addChat(data.from, data.msg, data.time, data.chatId);
       })
     }
   }
