@@ -2,6 +2,6 @@
   'use strict';
 
   angular
-    .module('websnap', ['ngRoute', 'ngMaterial', 'toastr']);
+    .module('websnap', ['ngRoute', 'ngMaterial', 'toastr', 'ngFileUpload']);
 
 })();
