@@ -64,12 +64,13 @@
         );
       };
 
-      this.sendmsg = function(tos, msg) {
+      this.sendmsg = function(tos, msg, imageUrl) {
         var apiCall = generateRoute('sendmsg');
         return $http.post(apiCall, {
           from: ContactService.getUserName(),
           tos: tos,
-          msg: msg
+          msg: msg,
+          url: imageUrl
         }).then(
           function success(response) {
             var msg = 'Message sent!';

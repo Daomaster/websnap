@@ -69,6 +69,7 @@ module.exports = function(io, config) {
 	   for (var i = req.body.tos.length - 1; i >= 0; i--) {
 	   	 io.emit(req.body.tos[i].userId, {
 	   	 	msg: req.body.msg,
+	   	 	url: req.body.url,
 	   	 	from: req.body.from,
 	   	 	time: "9/23/2016"
 	   	 });

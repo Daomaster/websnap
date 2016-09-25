@@ -11,7 +11,7 @@
     if(ContactService.getUserId() != ""){
       console.log("Listening WebSocket");
     	SocketFactory.on(ContactService.getUserId(), function(data) {
-        ChatService.addChat(data.from, data.msg, data.time);
+        ChatService.addChat(data.from, data.msg, data.time, data.url);
       })
     }
   }

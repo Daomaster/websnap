@@ -28,7 +28,7 @@
       //   }
       var chats = [];
 
-      this.addChat = function(from, msg, time) {
+      this.addChat = function(from, msg, time, imageURL) {
         var exist = false;
         for (var i = chats.length - 1; i >= 0; i--) {
           if (chats[i].from == from){
@@ -36,6 +36,7 @@
             chats[i].content.unshift({
               msg: msg,
               time: time,
+              url: imageURL,
               progress: 0
             });
           }
@@ -48,6 +49,7 @@
                 {
                   msg: msg,
                   time: time,
+                  url: imageURL,
                   progress: 0
                 }
               ]

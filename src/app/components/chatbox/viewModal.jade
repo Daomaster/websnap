@@ -13,7 +13,7 @@ md-dialog(aria-label='Send Message')
         div(layout='column')
           div(flex='80')
            md-whiteframe(class='md-whiteframe-3dp display-container' layout layout-align='center center')
-            image(class='image-display')
+            image(class='image-display' ng-src="{{chats[index].url}}")
           div(flex='20')
            p {{chats[index].msg}}
        div(flex='3')
