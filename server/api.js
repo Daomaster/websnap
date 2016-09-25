@@ -1,12 +1,24 @@
 module.exports = function(io, config) {
 	var express = require('express');
+	var fs = require('fs');
 	var Parse = require('parse/node');
 	var router = express.Router();
-	var ChatRecord = Parse.Object.extend("ChatMessage");
+	var ChatRecord = Parse.Object.extend("ChatHistory");
 
 	//Init Parse Server
 	Parse.initialize(config.appId)
 	Parse.serverURL = config.serverURL;
+
+	 router.get('/resource/:id', function(req, res) {
+   	var chatId = req.params.id;
+	  var path = 'msgTmp/'+req.params.id+'.png';
+	  	fs.readFile(path, function(err, data){
+	  		if (err)
+	  			console.log(err);
+	  		else
+	  			res.send(data);
+	  	});
+  });
 
 	 router.post('/signup', function(req, res) {
 	    if (req.body.fname && req.body.lname && req.body.username && req.body.password)
@@ -74,7 +86,10 @@ module.exports = function(io, config) {
 			    	for (var i = matches.length - 1; i >= 0; i--) {
 			    			matches[i].destroy({
 							  success: function(myObject) {
-							  	res.send("Deleted Object "+ matches[i].objectId);
+							  	//remove file from the node server
+							  	var filePath = 'msgTmp/'+req.body.objectId+'.png';
+							  	fs.unlinkSync(filePath);
+							  	res.send({message: "Sucess"});
 							  },
 							  error: function(myObject, error) {
 							     res.status(400).send({
@@ -84,7 +99,13 @@ module.exports = function(io, config) {
 							  }
 							});
 			    	}
-			  	}
+			  	},
+			  	error: function(myObject, error) {
+							     res.status(400).send({
+							    	 code: error.code,
+									   message: error.message
+									});
+							  }
 			  })
 	  });
 
@@ -93,53 +114,53 @@ module.exports = function(io, config) {
 			query.equalTo("to", req.body.query);
 			query.find({
 			  success: function(matches) {
-			  	var profilePhoto = matches[0].get("file");
-			  	console.log(profilePhoto.url());
 			    res.send(matches);
-			  	}
+			  	},
+		  	error: function(myObject, error) {
+						     res.status(400).send({
+						    	 code: error.code,
+								   message: error.message
+								});
+						  }
 			  })
 	  });
 
 	 	router.post('/sendmsg', function(req, res) {
-	   //Save file first
-	   var imageFile = new Parse.File("image.png", { base64: req.body.url });
+	   //Test
+	   var data = req.body.url.replace(/^data:image\/\w+;base64,/, "");
+	   var bitmap = new Buffer(data, 'base64');
 	   
-	   imageFile.save().then(function() {
-			  for (var i = req.body.tos.length - 1; i >= 0; i--) {
-			  	console.log("Iteration",i);
-		  		//Save the Object
-				  var chatRecord = new ChatRecord();
-					chatRecord.set("to", req.body.tos[i].userId);
-					chatRecord.set("from", req.body.from);
-					chatRecord.set("msg", req.body.msg);
-					chatRecord.set("file", imageFile);
+		  for (var i = req.body.tos.length - 1; i >= 0; i--) {
+	  		//Save the Object
+			  var chatRecord = new ChatRecord();
+				chatRecord.set("to", req.body.tos[i].userId);
+				chatRecord.set("from", req.body.from);
+				chatRecord.set("msg", req.body.msg);
 
-					chatRecord.save(null, {
-					  success: function(chat) {
-					    //Send real time data through socket
-					    io.emit(req.body.tos[i].userId, {
-					    	chatId: chat.objectId,
-					   	 	msg: req.body.msg,
-					   	 	url: req.body.url,
-					   	 	from: req.body.from,
-					   	 	time: "9/23/2016"
-					   	 });
-					    res.send("sucess");
-					  },
-					  error: function(error) {
-					    res.status(400).send({
-							    	 code: error.code,
-									   message: "Save Object Error:"+error.message
-									});
-					  }
-					});
-	  	 }
-			}, function(error) {
-			   res.status(400).send({
-			    	 code: error.code,
-					   message: "Save File Error:"+error.message
-					});
-			});
+				chatRecord.save(null, {
+				  success: function(chat) {
+				  	var path = "msgTmp/"+chat.id+".png";
+				  	console.log(path);
+				  	//save file on node.js
+				  	 fs.writeFileSync(path, bitmap);
+				    //Send real time data through socket
+				    io.emit(req.body.tos[i].userId, {
+				    	chatId: chat.id,
+				   	 	msg: req.body.msg,
+				   	 	url: req.body.url,
+				   	 	from: req.body.from,
+				   	 	time: "9/23/2016"
+				   	 });
+				    res.send({message: "Sucess"});
+				  },
+				  error: function(error) {
+				    res.status(400).send({
+						    	 code: error.code,
+								   message: "Save Object Error:"+error.message
+								});
+				  }
+				});
+		 }
 	  });
 
 	return router;

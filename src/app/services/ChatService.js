@@ -28,8 +28,9 @@
       //   }
       var chats = [];
 
-      this.addChat = function(from, msg, time, imageURL, chatId) {
+      this.addChat = function(from, msg, time, chatId) {
         var exist = false;
+        var imageURL = "http://localhost/api/resource/"+chatId;
         for (var i = chats.length - 1; i >= 0; i--) {
           if (chats[i].from == from){
             exist = true;

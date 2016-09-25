@@ -12,7 +12,7 @@
     var sucessHandler = function(res) {
       if (res.data.length > 0)
         for (var i = res.data.length - 1; i >= 0; i--) {
-          ChatService.addChat(res.data[i].from, res.data[i].msg, res.data[i].time, res.data[i].file.url, res.data[i].objectId);
+          ChatService.addChat(res.data[i].from, res.data[i].msg, res.data[i].time, res.data[i].objectId);
         }
     }
 
