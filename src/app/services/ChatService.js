@@ -56,6 +56,18 @@
           })
       };
 
+      this.deleteChatByIndex = function(name, index) {
+        for (var i = chats.length - 1; i >= 0; i--) {
+          if (chats[i].from == name)
+            {
+              //console.log("Start Deleting until:",chats[i].content[index].msg);
+              chats[i].content.splice(0, index);
+              if (chats[i].content.length == 0)
+                 chats.splice(i, 1);
+            }
+        }
+      };
+
       this.getChatsByName = function(name) {
         for (var i = chats.length - 1; i >= 0; i--) {
           if (chats[i].from == name)

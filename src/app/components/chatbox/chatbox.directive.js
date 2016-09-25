@@ -31,10 +31,10 @@
               $scope.from = from;
               $scope.index = 0;
               $scope.chats = ChatService.getChatsByName(from).content;
-              $scope.progress = 0; 
+              $scope.progress = 0;
+              var msgRead = 1;
               
               $scope.cancel = function() {
-               //TODO: should delete the stuff from the back end here
                for (var i = $scope.chats.length - 1; i >= 0; i--) {
                  $scope.chats[i].progress = 0;
                }
@@ -42,6 +42,9 @@
                   $interval.cancel(promise);
                   promise = undefined;
                 }
+               ChatService.deleteChatByIndex(from, msgRead);
+               $scope.index = 0;
+               msgRead++;
                $mdDialog.cancel();
               };
 
@@ -50,6 +53,8 @@
                $scope.index++;
                if ($scope.index == $scope.chats.length)
                     $scope.cancel();
+               else
+                    msgRead++;
               };
 
               var promise = $interval(function() {
@@ -63,11 +68,6 @@
             clickOutsideToClose:false,
             fullscreen: true
           })
-          .then(function(msg) {
-            //Here is to call the api send message
-          }, function() {
-            //Exit part of the modal
-          });
         };
       }
     }
