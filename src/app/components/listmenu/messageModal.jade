@@ -12,7 +12,8 @@ md-dialog(aria-label='Send Message')
        div(flex='3')
        div(flex='94')
         md-whiteframe(class="md-whiteframe-3dp display-container" layout layout-align="center center")
-         canvas(class="image-display" id="display-canvas")
+         div(class="image-display" ng-show="!imgFile" ngf-drop ngf-select ng-model="imgFile" ngf-allow-dir="true" ngf-drag-over-class="'dragover'" accept="image/svh+xml, image/png, image/jpeg, image/bmp") Drop or click to upload image
+         canvas(class="image-display" ng-show="imgFile" id="display-canvas")
        div(flex='3')
       md-input-container.md-block
         label Message
