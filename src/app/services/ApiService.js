@@ -57,7 +57,7 @@
           function success(response) {
             sCallback(response);
           },
-          function error(response) {
+          function error() {
             var msg = 'Unable to retrive query data...';
             httpError(msg);
           }
@@ -72,12 +72,46 @@
           msg: msg,
           url: imageUrl
         }).then(
-          function success(response) {
+          function success() {
             var msg = 'Message sent!';
             httpSuccess(msg);
           },
           function error(response) {
+            console.log(response);
             var msg = 'Unable to send message...';
+            httpError(msg);
+          }
+        );
+      };
+
+      this.getUnreadMessage = function(sCallback) {
+        var apiCall = generateRoute('querydata');
+        return $http.post(apiCall, {
+          query: ContactService.getUserId(),
+        }).then(
+          function success(response) {
+            var msg = 'Got all the unread messages';
+            httpSuccess(msg);
+            sCallback(response);
+          },
+          function error(response) {
+            var msg = 'Unable to retrive unread message...';
+            httpError(msg);
+          }
+        );
+      };
+
+      this.removeChat = function(chatId) {
+        var apiCall = generateRoute('removechat');
+        return $http.post(apiCall, {
+          objectId: chatId,
+        }).then(
+          function success() {
+            var msg = 'Deleted message '+chatId;
+            httpSuccess(msg);
+          },
+          function error() {
+            var msg = 'Unable to retrive unread message...';
             httpError(msg);
           }
         );

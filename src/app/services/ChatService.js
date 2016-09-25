@@ -4,7 +4,7 @@
 
   angular
     .module('websnap')
-    .service('ChatService', function(){
+    .service('ChatService', function(ApiService){
       //Data Structure
       // {
       //     from: "Mike",
@@ -28,13 +28,14 @@
       //   }
       var chats = [];
 
-      this.addChat = function(from, msg, time, imageURL) {
+      this.addChat = function(from, msg, time, imageURL, chatId) {
         var exist = false;
         for (var i = chats.length - 1; i >= 0; i--) {
           if (chats[i].from == from){
             exist = true;
             chats[i].content.unshift({
               msg: msg,
+              chatId: chatId,
               time: time,
               url: imageURL,
               progress: 0
@@ -48,6 +49,7 @@
               [
                 {
                   msg: msg,
+                  chatId: chatId,
                   time: time,
                   url: imageURL,
                   progress: 0
@@ -60,8 +62,11 @@
         for (var i = chats.length - 1; i >= 0; i--) {
           if (chats[i].from == name)
             {
-              //console.log("Start Deleting until:",chats[i].content[index].msg);
+              for (var j = index - 1; j >= 0; j--) {
+                ApiService.removeChat(chats[i].content[j].chatId);
+              }
               chats[i].content.splice(0, index);
+
               if (chats[i].content.length == 0)
                  chats.splice(i, 1);
             }
