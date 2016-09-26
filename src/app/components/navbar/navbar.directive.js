@@ -23,6 +23,7 @@
     /** @ngInject */
     function NavbarController($location, ContactService) {
       var vm = this;
+      vm.name = ContactService.getUserName();
       vm.logout = function() {
         ContactService.resetUserInfo();
         $location.path('login');

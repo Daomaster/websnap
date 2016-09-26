@@ -116,16 +116,6 @@
       
       vm.isOpen = false;
       vm.mode = 'md-scale';
-      vm.options = [
-        {
-          name: "Contacts",
-          iconURL: "assets/images/contact.svg"
-        },
-        {
-          name: "Profile",
-          iconURL: "assets/images/profile.svg"
-        }
-      ];
     }
   }
 

@@ -3,8 +3,3 @@ md-fab-speed-dial(md-open="vm.isOpen" ng-mouseenter="vm.hover()" ng-mouseleave="
     md-button.md-fab.md-warn(aria-label='Compose' ng-click="vm.messageModal()")
       md-tooltip(md-direction="left") Compose
       md-icon(md-svg-src='assets/images/compose.svg')
-
-  md-fab-actions
-    md-button.md-fab.md-raised.md-mini(aria-label='{{item.name}}' ng-repeat="item in vm.options")
-      md-tooltip(md-direction="left") {{item.name}}
-      md-icon(md-svg-src='{{item.iconURL}}', aria-label='{{item.name}}')
