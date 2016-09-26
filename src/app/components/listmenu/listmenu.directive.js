@@ -83,6 +83,12 @@
 
           $scope.querySearch = delayedQuerySearch;
 
+          $scope.$watch('tos', function (newVal) {
+              if (newVal.length >= 2){
+                newVal.shift();
+              }
+          }, true);
+
           $scope.$watch('imgFile', function (newVal) {
               if (newVal)
                 ImageService.processImage(newVal, document.getElementById('display-canvas'));
