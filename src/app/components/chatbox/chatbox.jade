@@ -8,5 +8,5 @@ md-card(ng-repeat='item in vm.options' md-whiteframe='6' ng-click='vm.expand(ite
         | {{ item.content[0].msg | limitTo: 20 }}{{item.content[0].msg.length > 20 ? '...' : ''}}
     div
       span
-        | {{item.content[0].time}}
+        | {{item.content[0].time | limitTo: 10}}
 
