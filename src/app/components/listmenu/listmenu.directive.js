@@ -94,8 +94,10 @@
           };
 
           $scope.send = function() {
-            ApiService.sendmsg($scope.tos,$scope.msg, ImageService.getDataURL());
-            $mdDialog.hide();
+            if ($scope.msg.length <= 140){
+              ApiService.sendmsg($scope.tos,$scope.msg, ImageService.getDataURL());
+              $mdDialog.hide();
+            }
           };
 
           },

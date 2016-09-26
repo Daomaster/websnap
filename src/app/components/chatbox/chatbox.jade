@@ -1,7 +1,7 @@
 md-card(ng-repeat='item in vm.options' md-whiteframe='6' ng-click='vm.expand(item.from)')
   md-card-title
     md-card-title-text
-      span.md-headline {{item.from}}
+      span {{item.content.length}}  Message from {{item.from}}
   md-card-content(layout='row' layout-align='space-around center')
     div(flex='50')
       span

@@ -130,7 +130,6 @@ module.exports = function(io, config) {
 	   var data = req.body.url.replace(/^data:image\/\w+;base64,/, "");
 	   var bitmap = new Buffer(data, 'base64');
 		  for (var i = req.body.tos.length - 1; i >= 0; i--) {
-		  	console.log("Saving chat file",i);
 		  	var id = req.body.tos[i].userId;
 	  		//Save the Object
 			  var chatRecord = new ChatRecord();
@@ -140,8 +139,6 @@ module.exports = function(io, config) {
 
 				chatRecord.save(null, {
 				  success: function(chat) {
-				  	console.log("Sucess");
-				  	console.log(id);
 				  	var path = "msgTmp/"+chat.id+".png";
 				    //Send real time data through socket
 				    io.emit(id, {
@@ -149,14 +146,13 @@ module.exports = function(io, config) {
 				   	 	msg: req.body.msg,
 				   	 	url: req.body.url,
 				   	 	from: req.body.from,
-				   	 	time: "9/23/2016"
+				   	 	time: chat.createdAt
 				   	 });
 				    //save file on node.js
 				    fs.writeFileSync(path, bitmap);	
 				    res.send({message: "Sucess"});
 				  },
 				  error: function(error) {
-				  	console.log("Failed");
 				    res.status(400).send({
 						    	 code: error.code,
 								   message: "Save Object Error:"+error.message

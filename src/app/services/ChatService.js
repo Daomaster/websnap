@@ -30,10 +30,16 @@
 
       this.addChat = function(from, msg, time, chatId) {
         var exist = false;
+        var chatExist = false;
         var imageURL = "http://localhost/api/resource/"+chatId;
         for (var i = chats.length - 1; i >= 0; i--) {
           if (chats[i].from == from){
             exist = true;
+            for (var j = chats[i].content - 1; j >= 0; j--) {
+              if (chats[i].content[j].chatId == chatId)
+                chatExist = true;
+            }
+            if (!chatExist){
             chats[i].content.unshift({
               msg: msg,
               chatId: chatId,
@@ -41,6 +47,7 @@
               url: imageURL,
               progress: 0
             });
+            }
           }
         }
         if (!exist)
