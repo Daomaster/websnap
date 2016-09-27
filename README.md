@@ -1,6 +1,5 @@
 # websnap
 ## How to Run
 1. npm install
-2. bower install
-3. gulp build
-4. npm start
+2. Create folder in root directory called 'msgTmp'
+3. npm start
